@@ -1,13 +1,11 @@
 import {readFileSync} from 'fs';
 
-const input = readFileSync('./input.txt', 'utf-8').toString().split("\n").map((item) => item.split(" "));
+const input = readFileSync('./input.txt', 'utf-8').toString().split("\n").map((item) => item.split(" ")).map(([instruction, amount]) => [instruction, Number(amount)] as const);
 
 let position = 0;
 let depth = 0;
 let aim = 0;
-input.map(item => {
-    const instruction = item[0];
-    const amount = parseInt(item[1]);
+input.map(([instruction, amount])  => {
     switch (instruction) {
         case "forward" :
             position += amount;
