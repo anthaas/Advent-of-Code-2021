@@ -2,21 +2,20 @@ import {readFileSync} from 'fs';
 
 const drawMap = (map:number[][]) => {
     const toPrint = new Array<Array<string>>()
-    for (let i = 0; i < map.length; i++) {
-        toPrint.push(Array.apply(null, new Array(map.length)).map(()=> '.'))
+    for (let i = 0; i < 40; i++) {
+        toPrint.push(Array.apply(null, new Array(10)).map(()=> '.'))
     }
     map.forEach(([x,y]) => toPrint[x][y] = '#')
-    const formatted = toPrint.map(item => item.join('')).join('\n')
+    const formatted = toPrint.map(item => item.reverse().join('')).join('\n')
     console.log(formatted)
 }
 
 
 const input = readFileSync('./input.txt', 'utf-8').toString().split("\n\n")
 let map = input[0].split('\n').map((item) => item.split(',').map(Number))
-const folds = input[1].split('\n').map((item) => item.replace("fold along ", "").split('='))//.map(([coord,value]) => [ccord, Number(value)]))
+const folds = input[1].split('\n').map((item) => item.replace("fold along ", "").split('='))
 
-
-for (const foldInstruction of folds) {
+folds.forEach((foldInstruction) => {
     const dots = new Set<string>()
     const foldAxis = foldInstruction[0]
     const foldValue = Number(foldInstruction[1])
@@ -39,6 +38,6 @@ for (const foldInstruction of folds) {
     })
 
     map = Array.from(dots.values()).map(item => item.split(';').map(Number))
-}
+})
 
 drawMap(map)
