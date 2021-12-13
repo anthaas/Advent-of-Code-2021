@@ -3,7 +3,7 @@ import {readFileSync} from 'fs';
 const drawMap = (map:number[][]) => {
     const toPrint = new Array<Array<string>>()
     for (let i = 0; i < 40; i++) {
-        toPrint.push(Array.apply(null, new Array(10)).map(()=> '.'))
+        toPrint.push(Array.apply(null, new Array(10)).map(()=> ' '))
     }
     map.forEach(([x,y]) => toPrint[x][y] = '#')
     const formatted = toPrint.map(item => item.reverse().join('')).join('\n')
